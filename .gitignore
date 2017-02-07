@@ -1,0 +1,14 @@
+.cache/
+tests/.cache
+
+# All byte-code compiled python files
+*.pyc
+
+# Pycharm IDE files
+.idea/
+
+# Pycharm Terminal start script
+.pycharmrc
+
+*.ini
+*.cfg
