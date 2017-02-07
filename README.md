@@ -59,3 +59,16 @@ t2 = t.groupby(['category1', 'category2']).agg({'category3': sum})
 t2.show()
 ```
 
+
+```python
+from table import Table
+
+d = {'user_id': [1, 1, 1, 2, 2, 2, 3, 3, 3],
+     'store_id': ['a', 'a', 'a', 'a', 'b', 'b', 'c', 'a', 'a'],
+     'revenue': [10, 20, 30, 10, 10, 20, 15, 20, 25]}
+
+t = Table(d)
+
+t2 = t.groupby(['store_id']).agg({'user_id': len, 'revenue': sum})
+
+t2.show()

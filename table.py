@@ -9,8 +9,8 @@ def read_csv(path, header=True, delimiter=',', datetime_columns=None):
         rd = csv.reader(f, delimiter=delimiter)
         if header is True:
             columns = next(rd)
-    row_data = [row for row in rd]
-    t = Table(dict(zip(columns, zip(*row_data)), datetime_columns))
+        row_data = [row for row in rd]
+    t = Table(dict(zip(columns, zip(*row_data))), datetime_columns)
     return t
 
 
