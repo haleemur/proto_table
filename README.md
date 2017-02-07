@@ -59,6 +59,7 @@ t2 = t.groupby(['category1', 'category2']).agg({'category3': sum})
 t2.show()
 ```
 
+A more complex pivot table illustrates aggregation on multiple columns
 
 ```python
 from table import Table
