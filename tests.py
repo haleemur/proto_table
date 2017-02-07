@@ -1,9 +1,9 @@
 import pytest
-import basetable as bt
+import table
 
 def test_init():
     d = {'A': [1, 1, 1, 3, 3], 'B': [1.2, 3.1, 34.1, 10, 3]}
-    t = bt.Table(d)
+    t = table.Table(d)
     assert list(t.generate_rows()) == [['A', 'B'],
                                        [1,1.2],
                                        [1,3.1], 
@@ -15,7 +15,7 @@ def test_init():
 def test_raise_on_unequal_length():
     d = {'A': [1, 1, 1, 3, 3, 2, 3], 'B': [1.2, 3.1, 34.1, 10, 3]}
     with pytest.raises(AssertionError) as e:
-        t = bt.Table(d)
+        t = table.Table(d)
         assert e.value.message == 'Input Columns have different lengths'
 
 
@@ -23,7 +23,7 @@ def test_groupby_groups():
     d = {'category1': ['a', 'b', 'c', 'a', 'b', 'a', 'b'],
          'category2': ['x', 'y', 'x', 'y', 'x', 'y', 'x'],
          'category3': [  1,   1,   1,   2,   2,   2,   2]}
-    t = bt.Table(d)
+    t = table.Table(d)
     t = t.groupby(['category1', 'category2'])
     expected = sorted([(('a', 'x'), {0}), (('b', 'y'), {1}), (('c', 'x'), {2}),
                        (('a', 'y'), {3,5}), (('b', 'x'), {4,6}), (('c', 'y'), set())],
@@ -36,7 +36,7 @@ def test_groupby_aggregate():
     d = {'category1': ['a', 'b', 'c', 'a', 'b', 'a', 'b'],
          'category2': ['x', 'y', 'x', 'y', 'x', 'y', 'x'],
          'category3': [  1,   1,   1,   2,   2,   2,   2]}
-    t = bt.Table(d)
+    t = table.Table(d)
     t = t.groupby(['category1', 'category2'])
     t.agg({'category3': sum})
     expected = [['category1', 'category2', 'category3_agg0'],

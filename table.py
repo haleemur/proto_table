@@ -31,16 +31,16 @@ class Table(object):
 
     def show(self, rownumbers=False):
         if self.groupby_columns is not None:
-            for row in self.generate_summary(**kwargs):
-                print('  '.join(cell.rjust(self.widths[i] for i, cell in row)))
+            for row in self.generate_summary(rownumbers):
+                print('  '.join([str(cell).rjust(self.widths[i]) for i, cell in enumerate(row)]))
         else:
-            for row in self.generate_rows(columns, rows, index):
-                print('  '.join(cell.rjust(self.widths[i] for i, cell in row)))
+            for row in self.generate_rows(rownumbers):
+                print('  '.join([str(cell).rjust(self.widths[i]) for i, cell in enumerate(row)]))
 
     def generate_rows(self, rownumbers=False): 
         columns = list(self.data.keys())
 
-        widths = {k: max(len(k), max(len(str(i)) for i in v)) for k, v in self.data.items()}
+        widths = [max(len(k), *(len(str(i)) for i in v)) for k, v in self.data.items()]
 
         if rownumbers is True:
             self.widths = [self.length] + widths

@@ -18,3 +18,44 @@
 * reshaping a grouped `Table` object, i.e. pivot table
 * data ordering
 * filtering
+
+## Getting Started
+
+This project requires python 3.3+ & pip to be available.
+
+clone this repository to your local machine
+
+```bash
+git clone git@github.com:haleemur/proto_table.git
+```
+
+install required packages (Unix)
+
+```bash
+cd /path/to/proto_table && pip install -r requirements.txt
+```
+
+open a python shell and run the following example:
+
+```python
+from table import Table
+
+# make some dummy data
+d = {'category1': ['a', 'a', 'b', 'a', 'a', 'a', 'b'],
+     'category2': ['x', 'y', 'x', 'y', 'x', 'y', 'x'],
+     'category3': [  1,   1,   1,   2,   2,   2,   2]}
+
+# create a Table from the dictionary
+t = Table(d)
+
+# outputs the data in a table
+t.show()
+
+# group & aggregate
+t2 = t.groupby(['category1', 'category2']).agg({'category3': sum})
+
+
+# outputs the summary in a table.
+t2.show()
+```
+
