@@ -1,7 +1,17 @@
 import csv
 from collections import defaultdict
 from itertools import product
-import sys
+from datetime import datetime
+
+
+def read_csv(path, header=True, delimiter=',', datetime_columns=None):
+    with open(path) as f:
+        rd = csv.reader(f, delimiter=delimiter)
+        if header is True:
+            columns = next(rd)
+    row_data = [row for row in rd]
+    t = Table(dict(zip(columns, zip(*row_data)), datetime_columns))
+    return t
 
 
 class Table(object):
@@ -18,16 +28,7 @@ class Table(object):
 
         if datetime_columns is not None:
             for col in datetime_columns:
-                self.data[k] = [strptime(i,'%Y-%m-%d') for i in self.data[k]]
-
-    def read_csv(self, path, header=True, delimter=',', datetime_columns=None):
-        with open(path) as f:
-            rd = csv.reader(f, delimiter=delimiter)
-            if header is True:
-                columns = next(rd) 
-            row_data = [row for row in rd]
-        t = Table(dict(zip(columns, zip(*row_data)), datetime_columns))
-        return t 
+                self.data[k] = [datetime.strptime(i, '%Y-%m-%d') for i in self.data[k]]
 
     def show(self, rownumbers=False):
         if self.groupby_columns is not None:
