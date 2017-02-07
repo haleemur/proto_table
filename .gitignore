@@ -12,3 +12,4 @@ tests/.cache
 
 *.ini
 *.cfg
+data/
